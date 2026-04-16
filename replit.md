@@ -2,7 +2,45 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+This workspace contains two independent projects:
+1. **Laravel API** — AI Website Builder REST API (`laravel-app/`)
+2. **Node.js Monorepo** — pnpm workspace with TypeScript artifacts
+
+---
+
+## Laravel AI Website Builder (`laravel-app/`)
+
+### Stack
+- PHP 8.2 + Laravel 11
+- SQLite (dev) — swap to PostgreSQL via `.env`
+- Laravel Sanctum (Bearer token auth)
+- File cache (swap to Redis via `.env`)
+- OpenAI GPT-3.5 with auto-mock fallback
+
+### Key Commands
+```bash
+cd laravel-app
+composer install          # install dependencies
+php artisan migrate       # run migrations
+php artisan serve --port=8000   # start server
+```
+
+### API Endpoints (port 8000)
+- `POST /api/auth/register` — register
+- `POST /api/auth/login` — login
+- `POST /api/auth/logout` — logout (protected)
+- `GET  /api/auth/me` — user profile (protected)
+- `POST /api/websites/generate` — AI generate (protected, 5/day limit)
+- `GET  /api/websites` — list (paginated, protected)
+- `GET  /api/websites/{id}` — show (protected)
+- `PUT  /api/websites/{id}` — update (protected)
+- `DELETE /api/websites/{id}` — delete (protected)
+- `GET  /api/websites/history` — prompt history (protected)
+- `GET  /api/websites/stats` — daily stats (protected)
+
+---
+
+## Node.js Monorepo
 
 ## Stack
 
